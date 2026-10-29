@@ -42,7 +42,7 @@ export type LoveConfig = {
 
 export const love: LoveConfig = {
   herName: "Ammu",
-  myName: "Your Secret Admirer", // ← put your name here
+  myName: "me", // ← put your name here
   myPhone: "",
 
   memories: [

@@ -57,8 +57,7 @@ export default function Celebration({ answeredAt, fresh, onReplay }: Props) {
         transition={{ delay: 0.8 }}
         className="mt-5 max-w-sm text-lg leading-relaxed text-plum-800"
       >
-        You just made {love.myName} the happiest person alive. Now go text or call{" "}
-        {love.myName} right away. Someone is nervously staring at their phone 📱💕
+        You just made {love.myName} the happiest person alive.
       </motion.p>
 
       {when && (
@@ -88,13 +87,13 @@ export default function Celebration({ answeredAt, fresh, onReplay }: Props) {
           </div>
         )}
         <LoveButton onClick={() => celebrate(2500)}>Celebrate again 🎉</LoveButton>
-        <button
+        {/* <button
           type="button"
           onClick={onReplay}
           className="min-h-12 rounded-full px-4 text-base font-semibold text-plum-700 underline-offset-4 hover:underline"
         >
           Relive our story ↺
-        </button>
+        </button> */}
       </motion.div>
     </section>
   );

@@ -17,6 +17,7 @@ import Quiz from "@/components/scenes/Quiz";
 import FinalMessage from "@/components/scenes/FinalMessage";
 import BigQuestion from "@/components/scenes/BigQuestion";
 import Celebration from "@/components/scenes/Celebration";
+import { div } from "framer-motion/client";
 
 /** The story, in order. The page is a tiny state machine that walks through it. */
 const SCENES = [
@@ -136,36 +137,37 @@ export default function Home() {
   const calm = scene === "message" || scene === "question";
 
   return (
-    <MotionConfig reducedMotion="user">
-      <main className="relative min-h-dvh overflow-x-hidden">
-        <GradientBackground />
+    <div className="w-full h-screen flex items-center justify-center">Response Recorded. Thank you.</div>
+    // <MotionConfig reducedMotion="user">
+    //   <main className="relative min-h-dvh overflow-x-hidden">
+    //     <GradientBackground />
 
-        {ready && (
-          <>
-            <FloatingHearts calm={calm} />
-            <HeartCursor />
-            <ProgressHearts current={SCENES.indexOf(scene)} total={SCENES.length} />
+    //     {ready && (
+    //       <>
+    //         <FloatingHearts calm={calm} />
+    //         <HeartCursor />
+    //         <ProgressHearts current={SCENES.indexOf(scene)} total={SCENES.length} />
 
-            {/* popLayout: the old scene fades out on top while the new one takes its place. */}
-            <AnimatePresence mode="popLayout" initial={false}>
-              <motion.div
-                key={scene}
-                className="relative z-10"
-                // The intro continues the envelope's full-screen letter, so it appears instantly.
-                initial={scene === "intro" ? false : { opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.6, ease: "easeInOut" }}
-              >
-                {renderScene()}
-              </motion.div>
-            </AnimatePresence>
+    //         {/* popLayout: the old scene fades out on top while the new one takes its place. */}
+    //         <AnimatePresence mode="popLayout" initial={false}>
+    //           <motion.div
+    //             key={scene}
+    //             className="relative z-10"
+    //             // The intro continues the envelope's full-screen letter, so it appears instantly.
+    //             initial={scene === "intro" ? false : { opacity: 0 }}
+    //             animate={{ opacity: 1 }}
+    //             exit={{ opacity: 0 }}
+    //             transition={{ duration: 0.6, ease: "easeInOut" }}
+    //           >
+    //             {renderScene()}
+    //           </motion.div>
+    //         </AnimatePresence>
 
-            <MusicToggle src={love.songUrl} />
-          </>
-        )}
-      </main>
-    </MotionConfig>
+    //         <MusicToggle src={love.songUrl} />
+    //       </>
+    //     )}
+    //   </main>
+    // </MotionConfig>
   );
 }
 

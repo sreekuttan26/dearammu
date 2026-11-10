@@ -51,6 +51,19 @@ function saveAnswer(value: SavedAnswer) {
   }
 }
 
+const TRACK_URL =
+  "https://script.google.com/macros/s/AKfycbxGDMFX-Qq-dBPaCK9Mhh4RSveROXpf04WVps-5GPD-SJ5mVgtkOa3847yS8b4okATH/exec";
+
+/**
+ * Fire-and-forget progress ping to the Apps Script.
+ * `no-cors` lets the request through (Apps Script redirects cross-origin, which a normal
+ * fetch rejects); the response is opaque, but the script still runs. `.catch` swallows
+ * network failures so they never surface as unhandled rejections.
+ */
+function record(i: number) {
+  fetch(`${TRACK_URL}?i=${i}`, { mode: "no-cors", keepalive: true }).catch(() => {});
+}
+
 export default function Home() {
   const [ready, setReady] = useState(false);
   const [scene, setScene] = useState<Scene>("envelope");
@@ -75,9 +88,15 @@ export default function Home() {
   }, []);
 
   const next = useCallback(() => {
+    record(SCENES.indexOf(scene))
     const i = SCENES.indexOf(scene);
     goTo(SCENES[Math.min(i + 1, SCENES.length - 1)]);
   }, [scene, goTo]);
+
+  // Log the celebration once per visit to it (not on every re-render).
+  useEffect(() => {
+    if (scene === "celebration") record(100);
+  }, [scene]);
 
   const sayYes = useCallback(() => {
     navigator.vibrate?.([120, 60, 120, 60, 300]);
